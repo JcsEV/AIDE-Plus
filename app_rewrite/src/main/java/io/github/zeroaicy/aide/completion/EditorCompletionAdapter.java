@@ -7,12 +7,16 @@ import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import cn.iyutong.aide.YAIDEEditor;
+import cn.iyutong.aide.quickinput.YQuickCode;
 import cn.iyutong.aide.translator.Translator;
 import com.aide.common.AIDEHelpActivityStarter;
 import com.aide.common.AppLog;
@@ -24,6 +28,7 @@ import com.aide.ui.activities.a;
 import com.aide.ui.rewrite.R;
 import io.github.zeroaicy.aide.preference.ZeroAicySetting;
 import io.github.zeroaicy.aide.ui.services.ThreadPoolService;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -58,14 +63,16 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 		}
 	}
 
+	private String editCurInput;
 	private void setEditCurInput(String editCurInput) {
+		this.editCurInput = editCurInput;
 		if(!this.quickCodes.isEmpty()){
 			this.quickCodes.clear();
 		}
 		// 忽略大小写
 		editCurInput = editCurInput.toLowerCase();
-		// 重新匹配 QuickCode
-		for(QuickCode quickCode : QuickCode.getAll()){
+
+		for(QuickCode quickCode : YQuickCode.getAll(YAIDEEditor.getAideEditor().getFilePath().toLowerCase())){
 			String name = quickCode.getNameLowerCase();
 			if( name.startsWith(editCurInput) ){
 				this.quickCodes.add(quickCode);
@@ -76,7 +83,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 
     private void DW(TextView textView, int start, int end, int color) {
 		((Spannable) textView.getText()).setSpan(new ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    }
+	}
 
     private void j6(TextView textView, int start, int end) {
 		((Spannable) textView.getText()).setSpan(new StyleSpan(1), start, end, 33);
@@ -179,10 +186,9 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 
 		Object item = getItem(position);
 		if (item == null) {
-			viewholder.completionEntryName.setText("No matches");
+			viewholder.completionEntryName.setText("无匹配项");
 			viewholder.completionEntryNamefy.setVisibility(View.GONE);
 			viewholder.completionEntryImage.setImageResource(R.drawable.browser_empty);
-			viewholder.completionHelpButton.setVisibility(View.GONE);
 			return entryView;
 		}
 		int itemViewType = getItemViewType(position);
@@ -191,28 +197,28 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 		}else if( itemViewType == SourceEntityType){			
 			showSourceEntity((SourceEntity)item, viewholder);
 		}else{
-			viewholder.completionEntryName.setText("No matches");
+			viewholder.completionEntryName.setText("无匹配项");
 			viewholder.completionEntryNamefy.setVisibility(View.GONE);
 			viewholder.completionEntryImage.setImageResource(R.drawable.browser_empty);
-			viewholder.completionHelpButton.setVisibility(View.GONE);
 		}
 		return entryView;
 
     }
 
 	private void showQuickCode(QuickCode quickCode, EditorCompletionAdapter.ViewHolder viewholder) {
-		ImageView completionEntryImage = viewholder.completionEntryImage;
 		TextView entryNameView = viewholder.completionEntryName;
+		entryNameView.setMaxLines(4);
+		entryNameView.setEllipsize(TextUtils.TruncateAt.END);
 
-
-		completionEntryImage.setImageResource(R.drawable.objects);
-		String name = quickCode.getName();
-
-		String text = name + " -\n" +quickCode.getCodeText();
+		String name = quickCode.getBt();
+		if (TextUtils.isEmpty(name)) {
+			name = quickCode.getKj();
+		}
+		String text = name + "\n" +quickCode.getCodeText().replaceAll("\n", "").trim();
 		entryNameView.setText(text, TextView.BufferType.SPANNABLE);
 		DW(entryNameView, name.length(), text.length(), getContext().getColor(R.color.browser_label_gray));
 
-		viewholder.completionHelpButton.setVisibility(View.GONE);
+		viewholder.completionHelpButton.setVisibility(View.VISIBLE);
 		viewholder.completionEntryNamefy.setVisibility(View.GONE);
 
 	}
@@ -316,20 +322,8 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 				break;
 		}
 
-		View completionHelpButton = viewholder.completionHelpButton;
+		((Spannable) entryNameView.getText()).setSpan(new ForegroundColorSpan(getContext().getColor(R.color.accent_material)), 0, this.editCurInput.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-		completionHelpButton.setVisibility(docUrl != null ? View.VISIBLE : View.GONE);
-		if (docUrl != null) {
-			completionHelpButton.setOnClickListener(new View.OnClickListener(){
-					@Override
-					public void onClick(View v) {
-						MainActivity mainActivity = ServiceContainer.getMainActivity();
-						mainActivity.getAIDEEditorPager().Eq();
-						a v5 = com.aide.ui.activities.a.v5();
-						AIDEHelpActivityStarter.DW(mainActivity, docUrl, v5.toString());
-					}
-				});
-		}
 	}
 
 	private static void initApiVersionInfoAsync(List<SourceEntity> sourceEntitys) {

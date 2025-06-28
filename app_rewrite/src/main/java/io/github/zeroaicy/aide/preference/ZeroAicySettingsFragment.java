@@ -10,10 +10,12 @@ import android.preference.Preference;
 import android.content.Intent;
 import android.app.Activity;
 
+import cn.iyutong.aide.activity.YQuickCodeSettings;
 import cn.iyutong.aide.translator.Translator;
 import io.github.zeroaicy.aide.highlight.HighlightActivity;
 
 import android.net.Uri;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 public class ZeroAicySettingsFragment extends PreferenceFragment {
@@ -43,6 +45,56 @@ public class ZeroAicySettingsFragment extends PreferenceFragment {
                 // android.R.anim.fade_out);
                 //getActivity().overridePendingTransition(0, 0);
 
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", "qt"));
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings_css", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", ".css"));
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings_xml", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", ".xml"));
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings_java", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", ".java"));
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings_c", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", ".c"));
                 return false;
             }
         });

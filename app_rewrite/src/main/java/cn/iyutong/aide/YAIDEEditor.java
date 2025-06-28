@@ -30,9 +30,13 @@ public class YAIDEEditor {
 		return !ServiceContainer.getMainActivity().getAIDEEditorPager().getFileEditors().isEmpty();
 	}
 
+	public static void setText(String commitText){
+		setText(getAideEditor(),commitText);
+	}
+
 	//在光标处插入文本
-	public static void setText(String commitText) {
-		CodeEditText.EditorView oEditor = AIDEEditorExtend.getEditorView(getAideEditor());
+	public static void setText(AIDEEditor aideEditor,String commitText) {
+		CodeEditText.EditorView oEditor = AIDEEditorExtend.getEditorView(aideEditor);
 		if (oEditor.getSelectionVisibility()) {
 			oEditor.getEditorModel().b1();
 			oEditor.k4();

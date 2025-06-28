@@ -169,6 +169,12 @@
 				android:value="防止代码分析服务被终止" />
 		</service>
 
+        <activity
+            android:theme="@style/ActivityActionbarThemeLight"
+            android:label="Settings"
+            android:name="cn.iyutong.aide.activity.YQuickCodeSettings"
+            android:excludeFromRecents="true"
+            android:screenOrientation="user" />
 
         <activity
             android:theme="@style/ActivityPreferencesThemeLight"

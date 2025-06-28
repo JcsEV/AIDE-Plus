@@ -8,7 +8,6 @@ import com.aide.common.AndroidHelper;
 import com.aide.common.AppLog;
 import com.aide.engine.OpenFile;
 import com.aide.engine.SyntaxError;
-import com.aide.ui.AppPreferences;
 import com.aide.ui.ServiceContainer;
 import com.aide.ui.rewrite.R;
 import com.aide.ui.services.EngineService;
@@ -20,7 +19,7 @@ import com.aide.ui.views.editor.EditorModel;
 import com.aide.ui.views.editor.EditorModelKt;
 import com.aide.ui.views.editor.TextBuffer;
 
-import cn.iyutong.aide.quickkeysbar.YQuickKeys;
+import cn.iyutong.aide.quickinput.YQuickKeys;
 import io.github.zeroaicy.aide.ui.services.ThreadPoolService;
 import io.github.zeroaicy.util.IOUtils;
 import java.io.Reader;
@@ -30,7 +29,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.atomic.AtomicBoolean;
 import android.content.res.Resources;
 import io.github.zeroaicy.aide.preference.ZeroAicySetting;
-import android.text.TextUtils;
 
 public class AIDEEditor extends com.aide.ui.AIDEEditor {
 

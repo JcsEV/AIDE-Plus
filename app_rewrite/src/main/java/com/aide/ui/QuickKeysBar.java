@@ -4,8 +4,6 @@
  */
 package com.aide.ui;
 
-import android.database.DataSetObserver;
-import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -15,14 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Keep;
-import androidx.viewpager.widget.PagerAdapter;
 
 import com.aide.common.AndroidHelper;
-import com.aide.common.AppLog;
 import com.aide.ui.rewrite.R;
 
 import cn.iyutong.aide.YAIDEEditor;
-import cn.iyutong.aide.quickkeysbar.YQuickKeysBar;
+import cn.iyutong.aide.quickinput.YQuickKeysBar;
 import io.github.zeroaicy.aide.preference.ZeroAicySetting;
 
 @Keep

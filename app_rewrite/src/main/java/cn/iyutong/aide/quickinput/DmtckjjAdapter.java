@@ -1,20 +1,14 @@
-package cn.iyutong.aide.quickkeysbar;
+package cn.iyutong.aide.quickinput;
 
 import android.os.SystemClock;
-import android.text.TextUtils;
-import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.aide.ui.QuickKeysBar;
 import com.aide.ui.ServiceContainer;
 import com.aide.ui.rewrite.R;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
