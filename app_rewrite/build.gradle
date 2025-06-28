@@ -82,6 +82,11 @@ dependencies {
 	api 'me.zhanghai.android.appiconloader:appiconloader-glide:1.5.0'
 	api 'me.zhanghai.android.appiconloader:appiconloader:1.5.0'
 	api 'me.zhanghai.android.appiconloader:appiconloader-iconloaderlib:1.5.0'
+	//
+	api "com.github.promeg:tinypinyin:3.0.0"
+	// material
+	api "com.google.android.material:material:1.13.0-alpha11"
+	
 	
 	// 颜色选择控件
 	api 'net.margaritov.preference.colorpicker.ColorPickerPreference:ColorPickerPreference:1.0.0' 

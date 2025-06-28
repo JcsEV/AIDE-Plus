@@ -569,7 +569,7 @@ public class FileBrowser extends LinearLayoutCompat implements
                             try {
 
                                 Context context = ContextUtil.getApplication();
-                                int iconSize = context.getResources().getDimensionPixelSize(R.dimen.app_icon_size);
+                                int iconSize = context.getResources().getDimensionPixelSize(android.R.dimen.app_icon_size);
 
                                 AppIconLoader mLoader = new AppIconLoader(iconSize, false, context);
                                 PackageManager pm = Utils.getApp().getPackageManager();
