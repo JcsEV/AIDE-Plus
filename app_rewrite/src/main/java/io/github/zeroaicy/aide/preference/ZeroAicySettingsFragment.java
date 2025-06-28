@@ -54,7 +54,47 @@ public class ZeroAicySettingsFragment extends PreferenceFragment {
             public boolean onPreferenceClick(Preference preference) {
                 Activity activity = getActivity();
                 activity.startActivity(
-                        new Intent(activity, YQuickCodeSettings.class).putExtra("title", preference.getTitle()));
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", "qt"));
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings_css", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", ".css"));
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings_xml", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", ".xml"));
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings_java", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", ".java"));
+                return false;
+            }
+        });
+
+        setOnPreferenceClickListener("iyuton_quickcodesettings_c", new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Activity activity = getActivity();
+                activity.startActivity(
+                        new Intent(activity, YQuickCodeSettings.class).putExtra("lx", ".c"));
                 return false;
             }
         });

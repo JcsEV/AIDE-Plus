@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cn.iyutong.aide.YAIDEEditor;
 import cn.iyutong.aide.quickinput.YQuickCode;
 import cn.iyutong.aide.translator.Translator;
 import com.aide.common.AIDEHelpActivityStarter;
@@ -62,14 +63,16 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 		}
 	}
 
+	private String editCurInput;
 	private void setEditCurInput(String editCurInput) {
+		this.editCurInput = editCurInput;
 		if(!this.quickCodes.isEmpty()){
 			this.quickCodes.clear();
 		}
 		// 忽略大小写
 		editCurInput = editCurInput.toLowerCase();
 
-		for(QuickCode quickCode : YQuickCode.getAll()){
+		for(QuickCode quickCode : YQuickCode.getAll(YAIDEEditor.getAideEditor().getFilePath().toLowerCase())){
 			String name = quickCode.getNameLowerCase();
 			if( name.startsWith(editCurInput) ){
 				this.quickCodes.add(quickCode);
@@ -80,7 +83,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 
     private void DW(TextView textView, int start, int end, int color) {
 		((Spannable) textView.getText()).setSpan(new ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-    }
+	}
 
     private void j6(TextView textView, int start, int end) {
 		((Spannable) textView.getText()).setSpan(new StyleSpan(1), start, end, 33);
@@ -207,9 +210,11 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 		entryNameView.setMaxLines(4);
 		entryNameView.setEllipsize(TextUtils.TruncateAt.END);
 
-		String name = quickCode.getName();
+		String name = quickCode.getBt();
+		if (TextUtils.isEmpty(name)) {
+			name = quickCode.getKj();
+		}
 		String text = name + "\n" +quickCode.getCodeText().replaceAll("\n", "").trim();
-
 		entryNameView.setText(text, TextView.BufferType.SPANNABLE);
 		DW(entryNameView, name.length(), text.length(), getContext().getColor(R.color.browser_label_gray));
 
@@ -316,6 +321,9 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 				completionEntryImage.setImageResource(R.drawable.browser_empty);
 				break;
 		}
+
+		((Spannable) entryNameView.getText()).setSpan(new ForegroundColorSpan(getContext().getColor(R.color.accent_material)), 0, this.editCurInput.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
 	}
 
 	private static void initApiVersionInfoAsync(List<SourceEntity> sourceEntitys) {

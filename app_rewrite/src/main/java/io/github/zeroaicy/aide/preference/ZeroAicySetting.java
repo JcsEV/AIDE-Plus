@@ -326,6 +326,11 @@ public class ZeroAicySetting implements SharedPreferences.OnSharedPreferenceChan
 				"#TAB { } - : . ; # % ( ) \\ \" ' @ > = [ ] / * ! _");
 	}
 
+	public static String getProjectPunctuationc() {
+		return getDefaultSpString("Myfz_project_Punctuation_c",
+				"#TAB < > / = \\ \" : @ + ( ) ; , . | & ! [ ] { } _ -");
+	}
+
 	public static String getProjectPunctuationqt() {
 		return getDefaultSpString("Myfz_project_Punctuation_qt",
 				"#TAB { } - : . ; # % ( ) \\ ' @ > = [ ] / * ! _");

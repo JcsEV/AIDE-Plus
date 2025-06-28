@@ -27,6 +27,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="添加数据"
+            style="@style/BrowserLabelSmallGray"
             android:textSize="20dp" />
 
         <TextView
@@ -36,6 +37,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="保存数据"
+            style="@style/BrowserLabelSmall"
             android:textSize="20dp" />
     </LinearLayout>
 </LinearLayout>

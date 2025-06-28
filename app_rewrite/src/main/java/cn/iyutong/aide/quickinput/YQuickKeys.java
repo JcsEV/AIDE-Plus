@@ -91,6 +91,9 @@ public class YQuickKeys {
         if (pathLowerCase.endsWith(".java") || pathLowerCase.endsWith(".js")) {
             return ZeroAicySetting.getProjectPunctuationjava();
         }
+        if (pathLowerCase.endsWith(".c") || pathLowerCase.endsWith(".cpp") || pathLowerCase.endsWith(".h")){
+            return ZeroAicySetting.getProjectPunctuationc();
+        }
         return ZeroAicySetting.getProjectPunctuationqt();
     }
 }
