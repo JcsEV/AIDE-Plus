@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center|start">
+
+    <View
+        android:id="@+id/bg_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.23"
+        android:background="?android:colorAccent" />
+
+    <View
+        android:id="@+id/background_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.26" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="4dp">
+
+        <RelativeLayout
+            android:layout_width="34dp"
+            android:layout_height="34dp">
+
+            <ImageView
+                android:id="@+id/icon"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/small_icon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="17dp"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="6dp"
+            tools:ignore="RtlSymmetry">
+
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:ellipsize="middle"
+                android:maxLines="2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/bar_start"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start|center_vertical"
+        android:background="?android:colorAccent" />
+
+
+</RelativeLayout>

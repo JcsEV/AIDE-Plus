@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    style="@style/BrowserHeaderBackgroundOuter">
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        style="@style/BrowserHeaderBackgroundInner"
+        android:paddingStart="16.0dip"
+        tools:ignore="RtlSymmetry">
+
+        <ImageView
+            android:id="@id/browserHeaderIcon"
+            android:paddingEnd="5.0dip"
+            android:layout_marginStart="3.0dip"
+            android:src="@drawable/file_type_unknown"
+            style="@style/BrowserHeaderImage"
+            tools:ignore="RtlSymmetry" />
+
+        <TextView
+            android:visibility="gone"
+            android:ellipsize="start"
+            android:id="@id/browserHeaderLabel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:singleLine="true"
+            android:layout_weight="1.0"
+            style="@style/BrowserHeaderLabel"
+            tools:ignore="HardcodedText" />
+
+        <io.github.zeroaicy.aide.ui.view.BreadcrumbView
+            android:ellipsize="start"
+            android:id="@+id/browserHeaderBreadcrumb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            style="@style/BrowserHeaderLabel" />
+
+        <ImageView
+            android:id="@id/browserHeaderMenuButton"
+            android:focusable="true"
+            android:layout_marginStart="5.0dip"
+            android:src="?icon_more"
+            style="@style/BrowserHeaderMenuButton"
+            app:tint="?color_key" />
+    </LinearLayout>
+</LinearLayout>

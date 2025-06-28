@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minHeight="1000.0dip"
+    android:orientation="vertical">
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <com.aide.ui.views.CustomKeysListView
+            android:id="@id/filebrowserFileList"
+            style="@style/BrowserListView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+</LinearLayout>
