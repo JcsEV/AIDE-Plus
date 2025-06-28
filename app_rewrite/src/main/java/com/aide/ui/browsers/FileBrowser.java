@@ -446,7 +446,7 @@ public class FileBrowser extends LinearLayoutCompat implements
             currentPath.append("/").append(segment);
             items.add(new BreadcrumbView.BreadcrumbItem(segment, currentPath.toString()));
         }
-        items.add(0,new BreadcrumbView.BreadcrumbItem("/", "/"));
+        items.add(0, new BreadcrumbView.BreadcrumbItem("/", "/"));
         return items;
     }
 
@@ -511,8 +511,8 @@ public class FileBrowser extends LinearLayoutCompat implements
 //            String currentEditor = ServiceContainer.getMainActivity().getAIDEEditorPager().getVisibleFile();
 
 
-            ImageView icon = inflate.findViewById(R.id.filebrowserEntryFileImage);
-            TextView title = inflate.findViewById(R.id.filebrowserEntryName);
+            ImageView icon = inflate.findViewById(R.id.icon);
+            TextView title = inflate.findViewById(R.id.title);
             ImageView smallIcon = inflate.findViewById(R.id.small_icon);
             TextView subtitle = inflate.findViewById(R.id.subtitle);
             View barStart = inflate.findViewById(R.id.bar_start);
@@ -641,6 +641,7 @@ public class FileBrowser extends LinearLayoutCompat implements
             else {
                 icon.setImageResource(iconResId);
                 title.setText(title_j6);
+
             }
 
 
