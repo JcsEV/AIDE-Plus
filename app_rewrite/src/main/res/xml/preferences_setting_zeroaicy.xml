@@ -242,6 +242,16 @@
 
         </PreferenceCategory>
 
+        <PreferenceCategory
+            android:title="快捷代码">
+
+            <Preference
+                android:key="iyuton_quickcodesettings"
+                android:summary="编辑快捷代码"
+                android:title="编辑快捷代码" />
+
+        </PreferenceCategory>
+
     </PreferenceScreen>
 
 

@@ -38,6 +38,7 @@
     </LinearLayout>
     <ImageView
         android:id="@id/completionHelpButton"
-        android:src="@drawable/info"
+        android:src="@drawable/yt_flashlamp"
+        android:visibility="gone"
         style="@style/BrowserHelpButton" />
 </LinearLayout>

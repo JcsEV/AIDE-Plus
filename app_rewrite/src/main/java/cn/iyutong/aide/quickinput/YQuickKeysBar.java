@@ -1,4 +1,4 @@
-package cn.iyutong.aide.quickkeysbar;
+package cn.iyutong.aide.quickinput;
 
 import android.view.LayoutInflater;
 import android.view.View;
