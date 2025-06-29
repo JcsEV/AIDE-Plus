@@ -3,13 +3,11 @@
  * @AIDE AIDE+
 */
 package io.github.zeroaicy.aide.ui.project;
-import android.text.TextUtils;
 import com.aide.engine.EngineSolution;
 import com.aide.engine.EngineSolutionProject;
 import com.aide.ui.project.NativeExecutableProjectSupport;
 import com.aide.ui.project.internal.GradleTools;
 import com.aide.ui.util.FileSystem;
-import io.github.zeroaicy.aide.utils.ZeroAicyBuildGradle;
 import java.io.File;
 import java.util.List;
 

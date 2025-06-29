@@ -37,7 +37,8 @@ public class pd extends MessageBox implements DialogInterface.OnClickListener {
 	public Dialog onCreateDialog(Activity activity) {
 		ProjectService projectService = ServiceContainer.getProjectService();
 
-		Spanned oldSpanned = Html.fromHtml(projectService.getProjectAttribute());
+		String projectAttribute = projectService.getProjectAttribute();
+		Spanned oldSpanned = Html.fromHtml(projectAttribute, Html.FROM_HTML_MODE_LEGACY);
 
 		TextView textView = new TextView(activity);
 		textView.setPadding((int) (activity.getResources().getDisplayMetrics().density * 10.0f),

@@ -41,7 +41,9 @@ public class CompletionItemClick implements AdapterView.OnItemClickListener {
 			if (sourceEntity.yS()) {
 				// AIDEEditorExtend.
 				AIDEEditor aideEditor = AIDEEditorExtend.getAIDEEditor(this.aideEditorCompletion);
+				// line ???
 				int hw = AIDEEditorExtend.Hw(this.aideEditorCompletion);
+				// column ???
 				int v5 = AIDEEditorExtend.v5(this.aideEditorCompletion);
 				int zo = AIDEEditorExtend.Zo(this.aideEditorCompletion);
 				aideEditor.aj(hw, v5, hw, zo, "");

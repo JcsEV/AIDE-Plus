@@ -35,6 +35,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import android.graphics.Typeface;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 	private static final int maxinitApiVersionSize = 0x1000;
@@ -81,12 +83,16 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 		notifyDataSetChanged();
 	}
 
-    private void DW(TextView textView, int start, int end, int color) {
-		((Spannable) textView.getText()).setSpan(new ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    private void applyForegroundColorSpan(TextView textView, int start, int end, int color) {
+		CharSequence text = textView.getText();
+		Spannable spannable = text instanceof Spannable ? (Spannable) text : new SpannableString(text);
+		spannable.setSpan(new ForegroundColorSpan(color), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 	}
 
-    private void j6(TextView textView, int start, int end) {
-		((Spannable) textView.getText()).setSpan(new StyleSpan(1), start, end, 33);
+    private void applyBoldStyleSpan(TextView textView, int start, int end) {
+		CharSequence text = textView.getText();
+		Spannable spannable = text instanceof Spannable ? (Spannable) text : new SpannableString(text);
+		spannable.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
     }
 
 
@@ -139,16 +145,19 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 
 
 	// 从 add -> addAll 减少 notifyDataSetChanged调用次数
+	
 	@Override
 	public void notifyDataSetChanged() {
-		initApiVersionInfoAsync(this.sourceEntitys);
 		super.notifyDataSetChanged();
+
+		initApiVersionInfoAsync(this.sourceEntitys);
 	}
 
 	@Override
 	public int getCount() {
 		return this.quickCodes.size() + this.sourceEntitys.size();
 	}
+	
 	@Override
 	public Object getItem(int position) {
 		int quickCodesSize = this.quickCodes.size();
@@ -216,7 +225,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 		}
 		String text = name + "\n" +quickCode.getCodeText().replaceAll("\n", "").trim();
 		entryNameView.setText(text, TextView.BufferType.SPANNABLE);
-		DW(entryNameView, name.length(), text.length(), getContext().getColor(R.color.browser_label_gray));
+		applyForegroundColorSpan(entryNameView, name.length(), text.length(), getContext().getColor(R.color.browser_label_gray));
 
 		viewholder.completionHelpButton.setVisibility(View.VISIBLE);
 		viewholder.completionEntryNamefy.setVisibility(View.GONE);
@@ -243,7 +252,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 					if (typeNameSuffix != null) {
 						String text = entityName + typeNameSuffix;
 						entryNameView.setText(text, TextView.BufferType.SPANNABLE);
-						DW(entryNameView, entityName.length(), text.length(), getContext().getColor(R.color.browser_label_gray));
+						applyForegroundColorSpan(entryNameView, entityName.length(), text.length(), getContext().getColor(R.color.browser_label_gray));
 					} else {
 						entryNameView.setText(entityName);
 					}
@@ -255,7 +264,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 						// sourceEntity.J8() 包名
 						String text = entityName + " - " + sourceEntity.J8();
 						entryNameView.setText(text, TextView.BufferType.SPANNABLE);
-						DW(entryNameView, entityName.length(), text.length(), getContext().getColor(R.color.browser_label_gray));
+						applyForegroundColorSpan(entryNameView, entityName.length(), text.length(), getContext().getColor(R.color.browser_label_gray));
 					} else {
 						entryNameView.setText(entityName);
 					}
@@ -263,7 +272,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 				break;
 			case KeywordType: {
 					entryNameView.setText(entityName, TextView.BufferType.SPANNABLE);
-					j6(entryNameView, 0, entityName.length());
+					applyBoldStyleSpan(entryNameView, 0, entityName.length());
 				}
 				break;
 			default:
@@ -322,14 +331,25 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 				break;
 		}
 
-		((Spannable) entryNameView.getText()).setSpan(new ForegroundColorSpan(getContext().getColor(R.color.accent_material)), 0, this.editCurInput.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+		CharSequence text = entryNameView.getText();
+		Spannable spannable = text instanceof Spannable ? (Spannable) text : new SpannableString(text);
+		int color = getContext().getColor(R.color.accent_material);
+		int textLength = text.length();
+		int end = this.editCurInput.length();
+		end = end > textLength ? textLength : end;
+		spannable.setSpan(new ForegroundColorSpan(color), 0, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 	}
-
+	
+	// 防抖
+	private static AtomicBoolean initApiVersionInfoCalled = new AtomicBoolean(false);
 	private static void initApiVersionInfoAsync(List<SourceEntity> sourceEntitys) {
-		if (sourceEntitys.isEmpty()) {
+		if (sourceEntitys.isEmpty() || initApiVersionInfoCalled.get()) {
 			return;
 		}
+		
+		initApiVersionInfoCalled.set(true);
+		
 		final ArrayList<SourceEntity> sourceEntitysCopy = new ArrayList<SourceEntity>(sourceEntitys);
 
 		ThreadPoolService.getDefaultThreadPoolService()
@@ -337,6 +357,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 				@Override
 				public void run() {
 					initApiVersionInfo(sourceEntitysCopy, infoMap);
+					initApiVersionInfoCalled.set(false);
 				}
 			});
 	}

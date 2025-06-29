@@ -3,7 +3,6 @@ package io.github.zeroaicy.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Scanner;
 
 public class MD5Util{
 

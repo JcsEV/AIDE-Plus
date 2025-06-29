@@ -163,15 +163,15 @@ public abstract class XListAdapter<T> extends BaseAdapter {
     }
 
     protected Drawable getDrawable(int resId) {
-        return mContext.getResources().getDrawable(resId);
+        return mContext.getDrawable(resId);
     }
 
     protected String getString(int resId) {
-        return mContext.getResources().getString(resId);
+        return mContext.getString(resId);
     }
 
     protected int getColor(int resId) {
-        return mContext.getResources().getColor(resId);
+        return mContext.getColor(resId);
     }
 
     public List<T> getItems() {
@@ -221,7 +221,7 @@ public abstract class XListAdapter<T> extends BaseAdapter {
      * @param selectPosition
      * @return
      */
-    public XListAdapter setSelectPosition(int selectPosition) {
+    public XListAdapter<T> setSelectPosition(int selectPosition) {
         mSelectPosition = selectPosition;
         notifyDataSetChanged();
         return this;

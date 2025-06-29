@@ -40,7 +40,7 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
     private int mStickyHeadPosition;
     private int[] mInto;
 
-    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.Adapter<?> mAdapter;
 
     private StickyHeadContainer mStickyHeadContainer;
     private boolean mEnableStickyHead = true;
@@ -202,7 +202,7 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
      * @param layoutManager
      * @return
      */
-    private int findFirstCompletelyVisiblePosition(RecyclerView.LayoutManager layoutManager) {
+    protected int findFirstCompletelyVisiblePosition(RecyclerView.LayoutManager layoutManager) {
         int firstVisiblePosition = 0;
         if (layoutManager instanceof GridLayoutManager) {
             firstVisiblePosition = ((GridLayoutManager) layoutManager).findFirstCompletelyVisibleItemPosition();
@@ -225,7 +225,7 @@ public class StickyItemDecoration extends RecyclerView.ItemDecoration {
      * @param parent
      */
     private void checkCache(final RecyclerView parent) {
-        final RecyclerView.Adapter adapter = parent.getAdapter();
+        final RecyclerView.Adapter<?> adapter = parent.getAdapter();
         if (mAdapter != adapter) {
             mAdapter = adapter;
             // 适配器为null或者不同，清空缓存

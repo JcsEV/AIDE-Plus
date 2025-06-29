@@ -1,13 +1,12 @@
 package com.aide.ui.util;
 
+import android.text.TextUtils;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.apache.maven.model.Exclusion;
-import java.util.ArrayList;
-import com.aide.common.AppLog;
-import android.text.TextUtils;
 
 public class ArtifactNode extends BuildGradle.MavenDependency{
 
@@ -26,7 +25,7 @@ public class ArtifactNode extends BuildGradle.MavenDependency{
 		}
 
 		String version = dep.version;
-		if ( version != null || version.length() == 0 ){
+		if ( version == null || version.length() == 0 ){
 			version = "+";
 		}
 		return new ArtifactNode(dep, version);

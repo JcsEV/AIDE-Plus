@@ -1,33 +1,18 @@
 package cn.iyutong.aide.quickinput;
 
 import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.os.SystemClock;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import com.aide.ui.ServiceContainer;
-import com.aide.ui.rewrite.R;
-
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import cn.iyutong.aide.YAIDEEditor;
 import cn.iyutong.tool.adapter.recyclerview.BaseRecyclerAdapter;
 import cn.iyutong.tool.adapter.recyclerview.RecyclerViewHolder;
+import com.aide.ui.rewrite.R;
 import io.github.zeroaicy.aide.completion.QuickCode;
-import io.github.zeroaicy.aide.preference.ZeroAicySetting;
-import io.github.zeroaicy.aide.ui.services.ThreadPoolService;
+import java.util.List;
 
 public class CodeAdapter extends BaseRecyclerAdapter<QuickCode> {
     public CodeAdapter(List<QuickCode> data) {
