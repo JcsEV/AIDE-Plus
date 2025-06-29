@@ -43,6 +43,7 @@ import org.eclipse.jdt.internal.compiler.env.NameEnvironmentAnswer;
 import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 import org.eclipse.jdt.internal.compiler.problem.DefaultProblem;
 import org.eclipse.jdt.internal.compiler.problem.DefaultProblemFactory;
+import java.util.LinkedHashSet;
 
 /**
  * 使用 Eclipse JDT Compiler 进行增量语义分析
@@ -334,8 +335,8 @@ public class ProjectEnvironment {
 		this.assemblyName = solutionProject.assemblyName;
 
 		this.releaseOutputPath = FileSpace.Assembly.getReleaseOutputPath(solutionProject.getAssembly());
-
-		Set<String> classpaths = new HashSet<>();
+		// 修复 不能使用嵌套类型 xxx$yyy 的二进制名称来引用它
+		Set<String> classpaths = new LinkedHashSet<>();
 
 		Set<SolutionProject> handleProjects = new HashSet<SolutionProject>();
 		// 添加Module依赖Id
