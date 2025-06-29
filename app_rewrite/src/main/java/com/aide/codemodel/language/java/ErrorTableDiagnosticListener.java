@@ -39,14 +39,14 @@ public class ErrorTableDiagnosticListener implements DiagnosticListener<JavaFile
 					// diagnostic.getCode();
 					String message = diagnostic.getMessage(Locale.getDefault());
 					System.out.println(name + " -> " + message);
-					
+
 					this.errorTable.addSemanticError(
 						entry, 
 						language, 
 						lineNumber, 
 						columnNumber,
 						lineNumber, columnNumber, "ecj: -> addSemanticError -> " + message, 20);
-					
+
 					this.errorTable.Hw(
 						entry, 
 						language, 
@@ -59,7 +59,7 @@ public class ErrorTableDiagnosticListener implements DiagnosticListener<JavaFile
 						lineNumber, 
 						columnNumber,
 						lineNumber, columnNumber, "ecj: -> lg -> " + message, 20);
-					
+
 				}
 				break;
 			case WARNING:{
@@ -68,9 +68,9 @@ public class ErrorTableDiagnosticListener implements DiagnosticListener<JavaFile
 					int lineNumber = (int) diagnostic.getLineNumber();
 					int columnNumber = (int)diagnostic.getColumnNumber();
 					String message = diagnostic.getMessage(Locale.getDefault());
-					
+
 					System.out.println(name + " -> " + message);
-					
+
 					// int startPosition = (int) diagnostic.getStartPosition();
 					// diagnostic.getCode();
 
@@ -84,6 +84,8 @@ public class ErrorTableDiagnosticListener implements DiagnosticListener<JavaFile
 
 
 				}
+				break;
+			default:
 				break;
 		}
 	}

@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Build;
 import androidx.core.content.FileProvider;
 import com.aide.ui.ServiceContainer;
-import com.aide.ui.firebase.FireBaseLogEvent;
 import com.aide.ui.project.internal.GradleTools;
 import com.aide.ui.util.FileSystem;
 import io.github.zeroaicy.aide.extend.InstalApkFromShizuku;

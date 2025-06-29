@@ -1,7 +1,6 @@
 package io.github.zeroaicy.aide.aapt2;
 
 import android.app.Application;
-import com.aide.common.AppLog;
 import com.aide.ui.services.AssetInstallationService;
 import dalvik.system.DexClassLoader;
 import io.github.zeroaicy.util.reflect.ReflectPie;

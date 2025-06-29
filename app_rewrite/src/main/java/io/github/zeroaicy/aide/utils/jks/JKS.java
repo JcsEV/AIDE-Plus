@@ -277,7 +277,7 @@ public class JKS extends KeyStoreSpi {
         aliases.remove(alias);
     }
 
-    public Enumeration engineAliases() {
+    public Enumeration<String> engineAliases() {
         return aliases.elements();
     }
 
@@ -301,7 +301,7 @@ public class JKS extends KeyStoreSpi {
     }
 
     public String engineGetCertificateAlias(Certificate cert) {
-        for (Iterator keys = trustedCerts.keySet().iterator(); keys.hasNext();) {
+        for (Iterator<String> keys = trustedCerts.keySet().iterator(); keys.hasNext();) {
             String alias = (String) keys.next();
             if (cert.equals(trustedCerts.get(alias)))
                 return alias;
@@ -318,7 +318,7 @@ public class JKS extends KeyStoreSpi {
         dout.writeInt(MAGIC);
         dout.writeInt(2);
         dout.writeInt(aliases.size());
-        for (Enumeration e = aliases.elements(); e.hasMoreElements();) {
+        for (Enumeration<String> e = aliases.elements(); e.hasMoreElements();) {
             String alias = (String) e.nextElement();
             if (trustedCerts.containsKey(alias)) {
                 dout.writeInt(TRUSTED_CERT);
@@ -457,7 +457,7 @@ public class JKS extends KeyStoreSpi {
             SecureRandom rand = SecureRandom.getInstance("SHA1PRNG");
             byte[] k = key.getEncoded();
             byte[] encrypted = new byte[k.length + 40];
-            byte[] keystream = rand.getSeed(20);
+            byte[] keystream = SecureRandom.getSeed(20);
             System.arraycopy(keystream, 0, encrypted, 0, 20);
             int count = 0;
             while (count < k.length) {

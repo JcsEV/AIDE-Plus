@@ -1,10 +1,9 @@
 package io.github.zeroaicy.aide.shizuku;
-import rikka.shizuku.ShizukuProvider;
 import android.content.Context;
 import android.content.pm.ProviderInfo;
-import io.github.zeroaicy.util.Log;
 import android.os.Bundle;
 import com.aide.common.AppLog;
+import rikka.shizuku.ShizukuProvider;
 
 public class ZeroAicyShizukuProvider extends ShizukuProvider {
 	public static final String TAG = "ZeroAicyShizukuProvider";

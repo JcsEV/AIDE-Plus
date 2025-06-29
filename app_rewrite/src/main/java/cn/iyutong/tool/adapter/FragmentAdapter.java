@@ -64,7 +64,7 @@ public class FragmentAdapter<T extends Fragment> extends FragmentPagerAdapter {
         setFragments(fragments);
     }
 
-    public FragmentAdapter setFragments(List<T> fragments) {
+    public FragmentAdapter<T> setFragments(List<T> fragments) {
         if (fragments != null && fragments.size() > 0) {
             mFragmentList.clear();
             mFragmentList.addAll(fragments);
@@ -72,14 +72,14 @@ public class FragmentAdapter<T extends Fragment> extends FragmentPagerAdapter {
         return this;
     }
 
-    public FragmentAdapter addFragments(List<T> fragments) {
+    public FragmentAdapter<T> addFragments(List<T> fragments) {
         if (fragments != null && fragments.size() > 0) {
             mFragmentList.addAll(fragments);
         }
         return this;
     }
 
-    public FragmentAdapter setTitles(List<String> titles) {
+    public FragmentAdapter<T> setTitles(List<String> titles) {
         if (titles != null && titles.size() > 0) {
             mTitleList.clear();
             mTitleList.addAll(titles);
@@ -87,14 +87,14 @@ public class FragmentAdapter<T extends Fragment> extends FragmentPagerAdapter {
         return this;
     }
 
-    public FragmentAdapter addTitles(List<String> titles) {
+    public FragmentAdapter<T> addTitles(List<String> titles) {
         if (titles != null && titles.size() > 0) {
             mTitleList.addAll(titles);
         }
         return this;
     }
 
-    public FragmentAdapter addFragment(T fragment, String title) {
+    public FragmentAdapter<T> addFragment(T fragment, String title) {
         if (fragment != null) {
             mFragmentList.add(fragment);
             mTitleList.add(title);

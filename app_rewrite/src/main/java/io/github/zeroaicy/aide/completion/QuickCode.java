@@ -3,8 +3,7 @@
  * @AIDE AIDE+ 
  */
 package io.github.zeroaicy.aide.completion;
-import java.util.List;
-import java.util.ArrayList;
+
 
 public class QuickCode{
 	private String kj;

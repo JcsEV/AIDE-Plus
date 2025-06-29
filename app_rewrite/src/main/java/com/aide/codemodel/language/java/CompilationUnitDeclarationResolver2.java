@@ -1,8 +1,6 @@
 package com.aide.codemodel.language.java;
 
-import android.os.Build;
 import com.aide.common.AppLog;
-import io.github.zeroaicy.aide.preference.ZeroAicySetting;
 import org.eclipse.jdt.internal.compiler.CompilationResult;
 import org.eclipse.jdt.internal.compiler.ICompilerRequestor;
 import org.eclipse.jdt.internal.compiler.IErrorHandlingPolicy;

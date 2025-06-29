@@ -35,7 +35,7 @@ public class ZeroAicyTemplateService extends TemplateService {
 	public List<String> j6_2(String str, String str2, String str3, String str4, TemplateGroup templateGroup) {
 
 		String replace = str3.replace('.', '_');
-		ArrayList arrayList = new ArrayList();
+		ArrayList<String> arrayList = new ArrayList<>();
 		try {
 			String Hw = Hw(str, str2);
 			new File(Hw).mkdirs();

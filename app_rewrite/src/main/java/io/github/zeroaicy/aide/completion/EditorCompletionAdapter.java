@@ -1,5 +1,6 @@
 package io.github.zeroaicy.aide.completion;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -7,35 +8,26 @@ import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import cn.iyutong.aide.YAIDEEditor;
 import cn.iyutong.aide.quickinput.YQuickCode;
 import cn.iyutong.aide.translator.Translator;
-import com.aide.common.AIDEHelpActivityStarter;
-import com.aide.common.AppLog;
 import com.aide.engine.SourceEntity;
 import com.aide.ui.AIDEEditor;
-import com.aide.ui.MainActivity;
-import com.aide.ui.ServiceContainer;
-import com.aide.ui.activities.a;
 import com.aide.ui.rewrite.R;
 import io.github.zeroaicy.aide.preference.ZeroAicySetting;
 import io.github.zeroaicy.aide.ui.services.ThreadPoolService;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import android.graphics.Typeface;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EditorCompletionAdapter extends ArrayAdapter<Object> {
@@ -145,7 +137,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 
 
 	// 从 add -> addAll 减少 notifyDataSetChanged调用次数
-	
+
 	@Override
 	public void notifyDataSetChanged() {
 		super.notifyDataSetChanged();
@@ -157,7 +149,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 	public int getCount() {
 		return this.quickCodes.size() + this.sourceEntitys.size();
 	}
-	
+
 	@Override
 	public Object getItem(int position) {
 		int quickCodesSize = this.quickCodes.size();
@@ -340,16 +332,16 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 		spannable.setSpan(new ForegroundColorSpan(color), 0, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
 	}
-	
+
 	// 防抖
 	private static AtomicBoolean initApiVersionInfoCalled = new AtomicBoolean(false);
 	private static void initApiVersionInfoAsync(List<SourceEntity> sourceEntitys) {
 		if (sourceEntitys.isEmpty() || initApiVersionInfoCalled.get()) {
 			return;
 		}
-		
+
 		initApiVersionInfoCalled.set(true);
-		
+
 		final ArrayList<SourceEntity> sourceEntitysCopy = new ArrayList<SourceEntity>(sourceEntitys);
 
 		ThreadPoolService.getDefaultThreadPoolService()

@@ -1,16 +1,13 @@
 package com.aide.codemodel.language.java;
 
-import android.util.SparseArray;
 import com.aide.codemodel.api.FileSpace;
-import com.aide.codemodel.api.collections.SetOfInt;
+import com.aide.ui.services.AssetInstallationService;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
-import com.aide.ui.services.AssetInstallationService;
-import java.util.Arrays;
 
 public class Project {
 

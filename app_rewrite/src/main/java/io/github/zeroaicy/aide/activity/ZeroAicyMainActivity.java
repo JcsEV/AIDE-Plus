@@ -18,7 +18,6 @@ import android.text.InputType;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.Menu;
@@ -35,12 +34,12 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.content.FileProvider;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.PagerAdapter;
-
 import com.aide.common.AndroidHelper;
 import com.aide.common.AppLog;
 import com.aide.ui.AIDEEditorPager;
 import com.aide.ui.MainActivity;
 import com.aide.ui.ServiceContainer;
+import com.aide.ui.project.internal.GradleTools;
 import com.aide.ui.rewrite.R;
 import com.aide.ui.services.FileBrowserService;
 import com.aide.ui.services.OpenFileService;
@@ -50,8 +49,6 @@ import com.aide.ui.views.SplitView;
 import com.hjq.permissions.OnPermissionCallback;
 import com.hjq.permissions.XXPermissions;
 import com.probelytics.Probelytics;
-
-import cn.iyutong.aide.YAIDEEditor;
 import io.github.zeroaicy.aide.extend.ZeroAicyExtensionInterface;
 import io.github.zeroaicy.aide.preference.ZeroAicyPreferencesActivity;
 import io.github.zeroaicy.aide.preference.ZeroAicySetting;
@@ -65,7 +62,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
-import com.aide.ui.project.internal.GradleTools;
 
 public class ZeroAicyMainActivity extends MainActivity {
 
@@ -152,7 +148,7 @@ public class ZeroAicyMainActivity extends MainActivity {
 	@Override
 	public void finish() {
 		super.finish();
-		// exit();
+		exit();
 	}
 
 	@Override
@@ -166,7 +162,7 @@ public class ZeroAicyMainActivity extends MainActivity {
 		//		
 		super.onDestroy();
 
-		// exit();
+		exit();
 	}
 
 	private void exit() {

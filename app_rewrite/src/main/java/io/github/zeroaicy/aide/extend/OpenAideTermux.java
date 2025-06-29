@@ -27,7 +27,7 @@ public class OpenAideTermux implements KeyStrokeCommand, MenuCommand {
 	}
 
 	//命令
-	private static final String gradle_cmd_line_extra = "gradle_cmd_line_extra";
+	// private static final String gradle_cmd_line_extra = "gradle_cmd_line_extra";
 	//工作目录
 	private static final String work_dir_extra = "work_dir_extra";
 

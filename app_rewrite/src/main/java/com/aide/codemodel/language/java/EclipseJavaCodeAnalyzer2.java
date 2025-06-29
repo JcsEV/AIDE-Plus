@@ -22,8 +22,6 @@ import org.eclipse.jdt.core.compiler.IProblem;
 import org.eclipse.jdt.internal.compiler.CompilationResult;
 import org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration;
 import org.eclipse.jdt.internal.compiler.problem.DefaultProblem;
-import com.aide.common.AppLog;
-import com.aide.codemodel.language.java.EclipseJavaCodeAnalyzer2.HighlighterInfo;
 
 public class EclipseJavaCodeAnalyzer2 extends JavaCodeAnalyzer {
 

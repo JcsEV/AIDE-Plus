@@ -5,6 +5,7 @@ import com.aide.codemodel.api.FileEntry;
 import com.aide.codemodel.api.FileSpace;
 import com.aide.codemodel.api.Model;
 import com.aide.codemodel.api.SyntaxTree;
+import com.aide.codemodel.api.SyntaxTreeSpace;
 import com.aide.codemodel.api.abstraction.CodeCompiler;
 import com.aide.codemodel.api.abstraction.CodeModel;
 import com.aide.codemodel.api.abstraction.Language;
@@ -16,8 +17,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import com.aide.codemodel.api.SyntaxTreeSpace;
-import com.aide.common.AppLog;
 
 public class EclipseJavaCodeCompiler implements CodeCompiler {
 

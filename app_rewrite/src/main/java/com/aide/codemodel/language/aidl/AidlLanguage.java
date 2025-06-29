@@ -1,20 +1,16 @@
 package com.aide.codemodel.language.aidl;
-import com.aide.codemodel.api.Model;
-import com.aide.codemodel.language.classfile.JavaBinaryLanguage;
-import com.aide.codemodel.api.abstraction.SignatureAnalyzer;
-import com.aide.codemodel.api.abstraction.CodeAnalyzer;
-import com.aide.codemodel.api.abstraction.TypeSystem;
-import com.aide.codemodel.api.abstraction.CodeRenderer;
-import com.aide.codemodel.api.abstraction.Language;
-import com.aide.codemodel.api.abstraction.Tools;
-import com.aide.codemodel.api.abstraction.Syntax;
-import java.util.Set;
-import com.aide.codemodel.api.abstraction.FormatOption;
-import com.aide.codemodel.language.java.JavaTypeSystem;
-import com.aide.codemodel.language.java.JavaCodeAnalyzer;
-import com.aide.codemodel.language.java.JavaSignatureAnalyzer;
-import com.aide.codemodel.language.java.JavaFormatOption;
 import com.aide.codemodel.HighlighterSyntax;
+import com.aide.codemodel.api.Model;
+import com.aide.codemodel.api.abstraction.CodeRenderer;
+import com.aide.codemodel.api.abstraction.FormatOption;
+import com.aide.codemodel.api.abstraction.Language;
+import com.aide.codemodel.api.abstraction.Syntax;
+import com.aide.codemodel.api.abstraction.Tools;
+import com.aide.codemodel.language.java.JavaCodeAnalyzer;
+import com.aide.codemodel.language.java.JavaFormatOption;
+import com.aide.codemodel.language.java.JavaSignatureAnalyzer;
+import com.aide.codemodel.language.java.JavaTypeSystem;
+import java.util.Set;
 
 public class AidlLanguage implements Language {
 

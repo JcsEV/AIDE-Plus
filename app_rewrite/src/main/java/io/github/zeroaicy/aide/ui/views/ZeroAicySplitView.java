@@ -3,7 +3,6 @@ package io.github.zeroaicy.aide.ui.views;
 import android.content.Context;
 import android.util.AttributeSet;
 import com.aide.ui.views.SplitView;
-import com.aide.ui.views.SplitView.OnSplitChangeListener;
 
 public class ZeroAicySplitView extends com.aide.ui.views.SplitView {
 	OnSplitInterceptListener onSplitInterceptListener;

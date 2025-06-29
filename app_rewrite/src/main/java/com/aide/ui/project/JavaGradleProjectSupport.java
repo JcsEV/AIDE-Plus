@@ -729,8 +729,8 @@ public class JavaGradleProjectSupport implements ProjectSupport {
 		depProjectIds.add(projectDir);
 		depProjectIds.add("android.jar");
 		return new EngineSolutionProject(projectDir, projectDir, projectDir, engineSolutionFiles, depProjectIds, true,
-				"", debugOutputPath, releaseOutputPath, "1.5", false, false, false, false, "", new ArrayList(),
-				new ArrayList(), new ArrayList());
+				"", debugOutputPath, releaseOutputPath, "1.5", false, false, false, false, "", new ArrayList<>(),
+				new ArrayList<>(), new ArrayList<>());
 	}
 
 	private static void DW(List<EngineSolutionProject> engineSolutionProject, String projectDir, String flavor,

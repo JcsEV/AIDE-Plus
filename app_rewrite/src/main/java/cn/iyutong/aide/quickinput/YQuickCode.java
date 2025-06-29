@@ -1,18 +1,12 @@
 package cn.iyutong.aide.quickinput;
 
 import android.text.TextUtils;
-
 import com.tencent.mmkv.MMKV;
-
-import org.json2.JSONArray;
-import org.json2.JSONObject;
-
+import io.github.zeroaicy.aide.completion.QuickCode;
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.iyutong.aide.YAIDEEditor;
-import io.github.zeroaicy.aide.completion.QuickCode;
-import io.github.zeroaicy.aide.preference.ZeroAicySetting;
+import org.json2.JSONArray;
+import org.json2.JSONObject;
 
 public class YQuickCode {
 

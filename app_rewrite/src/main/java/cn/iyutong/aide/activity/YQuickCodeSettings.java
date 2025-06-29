@@ -1,7 +1,6 @@
 package cn.iyutong.aide.activity;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,24 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
+import cn.iyutong.aide.quickinput.CodeAdapter;
+import cn.iyutong.aide.quickinput.YQuickCode;
 import com.aide.ui.ThemedActionbarActivity;
 import com.aide.ui.rewrite.R;
-
+import io.github.zeroaicy.aide.completion.QuickCode;
 import org.json2.JSONArray;
 import org.json2.JSONObject;
-import org.json2.JSONString;
-
-import cn.iyutong.aide.quickinput.CodeAdapter;
-import cn.iyutong.aide.quickinput.DmtckjjAdapter;
-import cn.iyutong.aide.quickinput.YQuickCode;
-import io.github.zeroaicy.aide.completion.QuickCode;
 
 public class YQuickCodeSettings extends ThemedActionbarActivity {
 

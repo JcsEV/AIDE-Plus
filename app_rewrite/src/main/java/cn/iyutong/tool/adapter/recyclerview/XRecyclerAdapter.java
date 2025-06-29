@@ -213,7 +213,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param collection 数据源
      */
-    public XRecyclerAdapter resetDataSource(Collection<T> collection) {
+    public XRecyclerAdapter<T, V> resetDataSource(Collection<T> collection) {
         if (collection != null) {
             mData.clear();
             mData.addAll(collection);
@@ -227,7 +227,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      * @param pos  位置
      * @param item 数据项
      */
-    public XRecyclerAdapter add(int pos, T item) {
+    public XRecyclerAdapter<T, V> add(int pos, T item) {
         if (pos >= 0 && pos <= getItemCount()) {
             mData.add(pos, item);
             notifyItemInserted(pos);
@@ -240,7 +240,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param item 数据项
      */
-    public XRecyclerAdapter add(T item) {
+    public XRecyclerAdapter<T, V> add(T item) {
         mData.add(item);
         notifyItemInserted(mData.size() - 1);
         return this;
@@ -251,7 +251,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param pos 位置
      */
-    public XRecyclerAdapter delete(int pos) {
+    public XRecyclerAdapter<T, V> delete(int pos) {
         if (checkPosition(pos)) {
             mData.remove(pos);
             notifyItemRemoved(pos);
@@ -265,7 +265,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      * @param pos  位置
      * @param item 数据项
      */
-    public XRecyclerAdapter refresh(int pos, T item) {
+    public XRecyclerAdapter<T, V> refresh(int pos, T item) {
         if (checkPosition(pos)) {
             mData.set(pos, item);
             notifyItemChanged(pos);
@@ -278,7 +278,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param collection 加载的数据集合
      */
-    public XRecyclerAdapter refresh(Collection<T> collection) {
+    public XRecyclerAdapter<T, V> refresh(Collection<T> collection) {
         if (collection != null) {
             mData.clear();
             mData.addAll(collection);
@@ -293,7 +293,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param array 加载的数据数组
      */
-    public XRecyclerAdapter refresh(T[] array) {
+    public XRecyclerAdapter<T, V> refresh(T[] array) {
         if (array != null && array.length > 0) {
             mData.clear();
             mData.addAll(Arrays.asList(array));
@@ -308,7 +308,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param collection 加载的数据集合
      */
-    public XRecyclerAdapter loadMore(Collection<T> collection) {
+    public XRecyclerAdapter<T, V> loadMore(Collection<T> collection) {
         if (collection != null) {
             mData.addAll(collection);
             notifyDataSetChanged();
@@ -321,7 +321,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param array 加载的数据数组
      */
-    public XRecyclerAdapter loadMore(T[] array) {
+    public XRecyclerAdapter<T, V> loadMore(T[] array) {
         if (array != null && array.length > 0) {
             mData.addAll(Arrays.asList(array));
             notifyDataSetChanged();
@@ -334,7 +334,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param item 数据
      */
-    public XRecyclerAdapter load(T item) {
+    public XRecyclerAdapter<T, V> load(T item) {
         if (item != null) {
             mData.add(item);
             notifyDataSetChanged();
@@ -385,7 +385,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param listener 列表项点击监听
      */
-    public XRecyclerAdapter setOnItemClickListener(RecyclerViewHolder.OnItemClickListener<T> listener) {
+    public XRecyclerAdapter<T, V> setOnItemClickListener(RecyclerViewHolder.OnItemClickListener<T> listener) {
         mClickListener = listener;
         return this;
     }
@@ -395,7 +395,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param listener 列表项长按监听
      */
-    public XRecyclerAdapter setOnItemLongClickListener(RecyclerViewHolder.OnItemLongClickListener<T> listener) {
+    public XRecyclerAdapter<T, V> setOnItemLongClickListener(RecyclerViewHolder.OnItemLongClickListener<T> listener) {
         mLongClickListener = listener;
         return this;
     }
@@ -412,7 +412,7 @@ public abstract class XRecyclerAdapter<T, V extends RecyclerView.ViewHolder> ext
      *
      * @param selectPosition 选中项
      */
-    public XRecyclerAdapter setSelectPosition(int selectPosition) {
+    public XRecyclerAdapter<T, V> setSelectPosition(int selectPosition) {
         mSelectPosition = selectPosition;
         notifyDataSetChanged();
         return this;

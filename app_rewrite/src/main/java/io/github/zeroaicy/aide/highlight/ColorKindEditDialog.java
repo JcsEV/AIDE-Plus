@@ -1,31 +1,29 @@
 package io.github.zeroaicy.aide.highlight;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputFilter;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.aide.ui.rewrite.R;
 import java.util.Locale;
 import net.margaritov.preference.colorpicker.ColorPickerPanelView;
 import net.margaritov.preference.colorpicker.ColorPickerPreference;
 import net.margaritov.preference.colorpicker.ColorPickerView;
-import android.widget.RadioGroup;
-import android.graphics.Typeface;
-import android.view.inputmethod.EditorInfo;
-import android.graphics.Color;
-import android.text.InputType;
-import android.text.TextWatcher;
-import android.text.Editable;
 
 public class ColorKindEditDialog extends AlertDialog
 		implements

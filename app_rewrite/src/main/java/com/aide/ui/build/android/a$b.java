@@ -3,7 +3,6 @@
 //
 package com.aide.ui.build.android;
 
-import abcd.th;
 import abcd.wf;
 import abcd.xf;
 import android.os.Build;
@@ -11,7 +10,6 @@ import com.aide.common.AppLog;
 import com.aide.common.StreamUtilities;
 import com.aide.ui.build.android.a$b;
 import com.aide.ui.util.FileSystem;
-import com.google.android.gms.internal.ads.iy;
 import com.probelytics.annotation.ExceptionEnabled;
 import com.probelytics.annotation.FieldMark;
 import com.probelytics.annotation.MethodMark;
@@ -196,7 +194,7 @@ class a$b {
     @MethodMark(method = -1068951146983634135L)
     private String u7(String str, List<String> list, String str2, String str3) {
         try {
-            ArrayList arrayList = new ArrayList();
+            ArrayList<String> arrayList = new ArrayList<>();
             arrayList.add(this.DW);
             arrayList.add("-p" + this.FH);
             Iterator<String> it = list.iterator();
@@ -212,7 +210,7 @@ class a$b {
             }
             arrayList.add(v5);
             Zo(arrayList);
-            wf j6 = xf.j6(arrayList, (String) null, (Map) null, true, (OutputStream) null, (byte[]) null);
+            wf j6 = xf.j6(arrayList, (String) null, (Map<String, String>)null, true, (OutputStream) null, (byte[]) null);
             if (j6.DW() != 0) {
                 if (j6.DW() == 11) {
                     AppLog.d("aidl exited with code 11");

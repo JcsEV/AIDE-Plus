@@ -10,9 +10,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.widget.TextView;
-import groovyjarjarantlr.Utils;
 import java.util.Locale;
-import androidx.annotation.ColorInt;
 
 public class ColorBackgroundTextView extends TextView {
 
@@ -41,7 +39,7 @@ public class ColorBackgroundTextView extends TextView {
 	public void setColor(int color) {
 		setText(convertToARGB(color));
 		AlphaPatternDrawable draw = new AlphaPatternDrawable(rectangleSize, color);
-		setBackgroundDrawable(draw);
+		setBackground(draw);
 		setTextColor(!isLightColor(color) ? Color.WHITE : Color.BLACK);
 	}
 	public static boolean isLightColor(int color) {

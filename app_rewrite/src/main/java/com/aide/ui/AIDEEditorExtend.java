@@ -20,7 +20,7 @@ public class AIDEEditorExtend {
 		return AIDEEditor.Ev(aideEditor);
 	}
 
-	public static void DW(AIDEEditorCompletion aideEditorCompletion, int p, int p1, List list) {
+	public static void DW(AIDEEditorCompletion aideEditorCompletion, int p, int p1, List<?> list) {
 		AIDEEditorCompletion.DW(aideEditorCompletion, p, p1, list);
 	}
 

@@ -352,7 +352,6 @@ public class ZeroAicyMavenService {
 	 * 返回此依赖及其子依赖在maven缓存仓库中的路径
 	 * 编译时的依赖解析
 	 */
-	@Deprecated
 	@Keep
 	public List<String> resolveFullDependencyTree(Map<String, String> flatRepositoryPathMap,
 			BuildGradle.MavenDependency dep) {
@@ -376,7 +375,6 @@ public class ZeroAicyMavenService {
 	 * 从给定的依赖路径，返回其自己及子依赖路径
 	 * 递归3层
 	 */
-	@Deprecated
 	@Keep
 	public List<String> resolveFullDependencyTree(String depPath) {
 		try {
@@ -742,8 +740,7 @@ public class ZeroAicyMavenService {
 	 */
 	private String getDepPomPath(String depPath) {
 		try {
-			if (depPath == null) {
-				depPath.length();
+			if (depPath == null || depPath.length() == 0) {
 				return null;
 			}
 			// 按道理应该是版本

@@ -87,7 +87,7 @@ public class HighlightAdapter extends BaseAdapter {
 
         TextView title = new TextView(context);
         title.setId(android.R.id.text1);
-        title.setTextAppearance(context, android.R.style.TextAppearance_Large);
+        title.setTextAppearance(android.R.style.TextAppearance_Large);
         title.setTextSize(16);
 		title.setPadding(0, 0, 0, dp2px(5));
 

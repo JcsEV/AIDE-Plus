@@ -3,7 +3,6 @@ import com.aide.codemodel.api.EntitySpace;
 import com.aide.codemodel.api.ErrorTable;
 import com.aide.codemodel.api.IdentifierSpace;
 import com.aide.codemodel.api.Parser;
-import com.aide.codemodel.api.abstraction.Syntax;
 import com.aide.codemodel.language.java.JavaSyntax;
 
 public class SmaliParser extends Parser {

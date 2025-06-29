@@ -3122,10 +3122,10 @@ public class CmakeLexer implements JFlexLexer {
   /* user code: */
   // Stolen from Mathematica support plugin
     // This adds support for nested states. I'm no JFlex pro, so maybe this is overkill, but it works quite well.
-    private final LinkedList<Integer> states = new LinkedList();
+    private final LinkedList<Integer> states = new LinkedList<>();
 
     // Scope names that needs to be tracked when entering block
-    private final LinkedList<String> names = new LinkedList();
+    private final LinkedList<String> names = new LinkedList<>();
 
     // Known ids (used before or set)
     private final Set<String> known_ids = new HashSet<String>();

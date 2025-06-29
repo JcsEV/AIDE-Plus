@@ -64,7 +64,7 @@ public class FragmentStateAdapter<T extends Fragment> extends FragmentStatePager
         setFragments(fragments);
     }
 
-    public FragmentStateAdapter setFragments(List<T> fragments) {
+    public FragmentStateAdapter<T> setFragments(List<T> fragments) {
         if (fragments != null && fragments.size() > 0) {
             mFragmentList.clear();
             mFragmentList.addAll(fragments);
@@ -72,14 +72,14 @@ public class FragmentStateAdapter<T extends Fragment> extends FragmentStatePager
         return this;
     }
 
-    public FragmentStateAdapter addFragments(List<T> fragments) {
+    public FragmentStateAdapter<T> addFragments(List<T> fragments) {
         if (fragments != null && fragments.size() > 0) {
             mFragmentList.addAll(fragments);
         }
         return this;
     }
 
-    public FragmentStateAdapter setTitles(List<String> titles) {
+    public FragmentStateAdapter<T> setTitles(List<String> titles) {
         if (titles != null && titles.size() > 0) {
             mTitleList.clear();
             mTitleList.addAll(titles);
@@ -87,14 +87,14 @@ public class FragmentStateAdapter<T extends Fragment> extends FragmentStatePager
         return this;
     }
 
-    public FragmentStateAdapter addTitles(List<String> titles) {
+    public FragmentStateAdapter<T> addTitles(List<String> titles) {
         if (titles != null && titles.size() > 0) {
             mTitleList.addAll(titles);
         }
         return this;
     }
 
-    public FragmentStateAdapter addFragment(T fragment, String title) {
+    public FragmentStateAdapter<T> addFragment(T fragment, String title) {
         if (fragment != null) {
             mFragmentList.add(fragment);
             mTitleList.add(title);

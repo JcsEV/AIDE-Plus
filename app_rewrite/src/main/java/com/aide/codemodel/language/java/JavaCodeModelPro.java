@@ -18,7 +18,6 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import com.aide.common.AppLog;
 
 public class JavaCodeModelPro implements CodeModel {
 

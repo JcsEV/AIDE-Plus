@@ -23,8 +23,7 @@ public class IOUtils {
 	 */
 	public static void streamTransfer(InputStream bufferedInputStream) throws IOException {
 		byte[] data = new byte[4096];
-		int read;
-		while ((read = bufferedInputStream.read(data)) > 0);
+		while ( bufferedInputStream.read(data) > 0);
 	}
 	
 	public static void streamTransfer(InputStream inputStream, OutputStream outputStream) throws IOException {
