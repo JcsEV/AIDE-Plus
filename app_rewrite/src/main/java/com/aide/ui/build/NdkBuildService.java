@@ -756,7 +756,7 @@ public class NdkBuildService {
 								String ndkVersionString = builder.getNdkVersion();
 
 								int ndkVersionInt;
-								if (TextUtils.isEmpty(ndkVersion) || ndkVersionString.length() < 2) {
+								if (TextUtils.isEmpty(ndkVersionString) || ndkVersionString.length() < 2) {
 									ndkVersionInt = 0;
 								} else {
 									ndkVersionInt = Utils.parseInt(ndkVersionString.substring(0, 2), 0);
@@ -860,7 +860,7 @@ public class NdkBuildService {
 						String ndkVersionString = builder.getNdkVersion();
 
 						int ndkVersionInt;
-						if (TextUtils.isEmpty(ndkVersion) || ndkVersionString.length() < 2) {
+						if (TextUtils.isEmpty(ndkVersionString) || ndkVersionString.length() < 2) {
 							ndkVersionInt = 0;
 						} else {
 							ndkVersionInt = Utils.parseInt(ndkVersionString.substring(0, 2), 0);
