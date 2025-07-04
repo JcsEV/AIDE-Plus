@@ -9,11 +9,12 @@ import java.util.Map;
 import java.util.Arrays;
 import io.github.zeroaicy.aide.utils.Utils;
 import java.util.Set;
+import com.aide.common.AppLog;
 
 public class CmakeBuild {
 	/* 
 	 ANDROID_SDK_PATH=$HOME/android-sdk
-	
+
 	 $ANDROID_SDK_PATH/cmake/$CMAKE_VERSION/bin/cmake \
 	 -H$PROJECT_PATH/$CMAKE_LISTS_TXT_PATH \
 	 -DCMAKE_SYSTEM_NAME=Android \
@@ -32,9 +33,9 @@ public class CmakeBuild {
 	 -B$CMAKE_BUILD_CACHE_PATH \
 	 -GNinja
 	 -B含义是cmake输出目录(构建脚本目录)
-	
+
 	 $ANDROID_SDK_PATH/cmake/$CMAKE_VERSION/bin/ninja -C $CMAKE_BUILD_CACHE_PATH
-	
+
 	 */
 
 	private boolean error;
@@ -43,6 +44,25 @@ public class CmakeBuild {
 	private List<String> ninjaCommandList;
 
 	File buildNinjaFile;
+
+	File stlSharedFile;
+	String cmakeLibraryOutputDirectory;
+
+	public void setStlSharedFile(File stlSharedFile) {
+		this.stlSharedFile = stlSharedFile;
+	}
+	public File getStlSharedFile() {
+		return this.stlSharedFile;
+	}
+
+	public void setCmakeLibraryOutputDirectory(String cmakeLibraryOutputDirectory) {
+		this.cmakeLibraryOutputDirectory = cmakeLibraryOutputDirectory;
+	}
+
+	public String getCmakeLibraryOutputDirectory() {
+		return this.cmakeLibraryOutputDirectory;
+	}
+
 	public void setBuildNinjaFile(File buildNinjaFile) {
 		this.buildNinjaFile = buildNinjaFile;
 	}
@@ -357,14 +377,14 @@ public class CmakeBuild {
 			cmakeCommandList.add("-DCMAKE_ANDROID_NDK=" + ANDROID_SDK_PATH + "/ndk/" + NDK_VERSION);
 			//设置NDK初始化Cmake文件
 			cmakeCommandList.add("-DCMAKE_TOOLCHAIN_FILE=" + ANDROID_SDK_PATH + "/ndk/" + NDK_VERSION
-					+ "/build/cmake/android.toolchain.cmake");
+								 + "/build/cmake/android.toolchain.cmake");
 			//设置ninja路径
 			cmakeCommandList.add("-DCMAKE_MAKE_PROGRAM=" + ANDROID_SDK_PATH + "/cmake/" + CMAKE_VERSION + "/bin/ninja");
 			//输出路径
 			cmakeCommandList
-					.add("-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + PROJECT_PATH + "/" + CMAKE_LIBRARY_OUTPUT_DIRECTORY);
+				.add("-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=" + PROJECT_PATH + "/" + CMAKE_LIBRARY_OUTPUT_DIRECTORY);
 			cmakeCommandList
-					.add("-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=" + PROJECT_PATH + "/" + CMAKE_RUNTIME_OUTPUT_DIRECTORY);
+				.add("-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=" + PROJECT_PATH + "/" + CMAKE_RUNTIME_OUTPUT_DIRECTORY);
 			//构建类型
 			cmakeCommandList.add("-DCMAKE_BUILD_TYPE=" + CMAKE_BUILD_TYPE);
 			//缓存目录
@@ -396,6 +416,44 @@ public class CmakeBuild {
 			ninjaCommandList.add("-C");
 			ninjaCommandList.add(PROJECT_PATH + "/" + CMAKE_BUILD_CACHE_PATH + "/" + ANDROID_ABI);
 			cmakeBuild.setNinjaCommandList(ninjaCommandList);
+
+			// 修复 ANDROID_STL 是  c++_shared时 libc++_shared.so不存在的问题
+			String CMAKE_ARGUMENTS_STRING = CMAKE_ARGUMENTS.toString();
+			if( CMAKE_ARGUMENTS_STRING.contains("-DANDROID_STL=c++_shared")
+			   || CMAKE_ARGUMENTS_STRING.contains("-stl=c++_shared")
+			   ){
+				File prebuiltFile = new File(ANDROID_SDK_PATH + "/ndk/" + NDK_VERSION + "/toolchains/llvm/prebuilt");
+				File linuxFile = new File(prebuiltFile, "linux-aarch64");
+				if( !linuxFile.isDirectory()){
+					linuxFile = new File(prebuiltFile, "linux-x86_64");
+				}
+
+				String libABI;
+				if( "arm64-v8a".equals(ANDROID_ABI)){
+					libABI = "aarch64-linux-android";
+				}else if( "armeabi-v7a".equals(ANDROID_ABI)){
+					libABI = "arm-linux-androideabi";
+				}else if( "x86".equals(ANDROID_ABI)){
+					libABI = "i686-linux-android";
+				}else if( "x86_64".equals(ANDROID_ABI)){
+					libABI = "x86_64-linux-android";
+				}else if( "riscv64".equals(ANDROID_ABI)){
+					libABI = "riscv64-linux-android";
+				}else{
+					libABI = null;
+				}
+
+				File stlSharedFile = new File(linuxFile, "/sysroot/usr/lib/"+ libABI + "/libc++_shared.so");
+				AppLog.println_d(stlSharedFile.getAbsolutePath());
+				if( stlSharedFile.isFile()){
+					cmakeBuild.setStlSharedFile(stlSharedFile);
+					cmakeBuild.setCmakeLibraryOutputDirectory(PROJECT_PATH + "/" + CMAKE_LIBRARY_OUTPUT_DIRECTORY);
+				}else{
+					cmakeBuild.setStlSharedFile(null);
+				}
+			}else{
+				cmakeBuild.setStlSharedFile(null);
+			}
 
 			return cmakeBuild;
 		}
@@ -434,14 +492,14 @@ public class CmakeBuild {
 			commandList.add("-DCMAKE_ANDROID_NDK=$ANDROID_SDK_PATH/ndk/$NDK_VERSION");
 			//设置NDK初始化Cmake文件
 			commandList.add(
-					"-DCMAKE_TOOLCHAIN_FILE=$ANDROID_SDK_PATH/ndk/$NDK_VERSION/build/cmake/android.toolchain.cmake");
+				"-DCMAKE_TOOLCHAIN_FILE=$ANDROID_SDK_PATH/ndk/$NDK_VERSION/build/cmake/android.toolchain.cmake");
 			//设置ninja路径
 			commandList.add("-DCMAKE_MAKE_PROGRAM=$ANDROID_SDK_PATH/cmake/$CMAKE_VERSION/bin/ninja");
 			//输出路径
 			commandList.add(
-					"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$PROJECT_PATH/" + CMAKE_OUTPUT_DIRECTORY_PATH + "/$ANDROID_ABI ");
+				"-DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$PROJECT_PATH/" + CMAKE_OUTPUT_DIRECTORY_PATH + "/$ANDROID_ABI ");
 			commandList.add(
-					"-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=$PROJECT_PATH/" + CMAKE_OUTPUT_DIRECTORY_PATH + "/$ANDROID_ABI");
+				"-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=$PROJECT_PATH/" + CMAKE_OUTPUT_DIRECTORY_PATH + "/$ANDROID_ABI");
 			//构建类型
 			commandList.add("-DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE");
 			//缓存目录
@@ -453,19 +511,19 @@ public class CmakeBuild {
 			//使用ninja执行build.ninja
 			//commandList.add("$ANDROID_SDK_PATH/cmake/$CMAKE_VERSION/bin/ninja -C $CMAKE_BUILD_CACHE_PATH/$ANDROID_ABI");
 			commandList.add(ANDROID_SDK_PATH + "/cmake/" + CMAKE_VERSION
-					+ "/bin/ninja -C $PROJECT_PATH/$CMAKE_BUILD_CACHE_PATH/$ANDROID_ABI");
+							+ "/bin/ninja -C $PROJECT_PATH/$CMAKE_BUILD_CACHE_PATH/$ANDROID_ABI");
 		}
 
 	}
 
 	/*
-	
+
 	 $ANDROID_SDK_PATH/cmake/$CMAKE_VERSION/bin/cmake \
 	 -DCMAKE_SYSTEM_NAME=Android \ √
 	 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \ √
-	
+
 	 -H$PROJECT_PATH/$CMAKE_LISTS_TXT_PATH \ √
-	
+
 	 -DCMAKE_SYSTEM_VERSION=$SYSTEM_VERSION \ √
 	 -DANDROID_PLATFORM=android-$SYSTEM_VERSION \ √
 	 -DANDROID_ABI=$ANDROID_ABI \ √
@@ -481,7 +539,7 @@ public class CmakeBuild {
 	 -GNinja
 	 #-B含义是cmake输出目录(构建脚本目录)
 	 $ANDROID_SDK_PATH/cmake/$CMAKE_VERSION/bin/ninja -C $CMAKE_BUILD_CACHE_PATH
-	
+
 	 */
 }
 

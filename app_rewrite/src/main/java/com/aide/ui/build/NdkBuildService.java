@@ -53,6 +53,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 import java.nio.charset.StandardCharsets;
+import java.io.FileInputStream;
+import io.github.zeroaicy.util.IOUtils;
+import java.io.FileOutputStream;
 
 public class NdkBuildService {
 	public static final String TAG = "NdkBuildService";
@@ -108,9 +111,9 @@ public class NdkBuildService {
 		Map<String, List<SyntaxError>> syntaxErrorsMap = new HashMap<>();
 
 		String[] lineInfos = ndkError.split("\n");
-		
+
 		int lineInfosSize = lineInfos.length;
-		
+
 		for (int index = 0; index < lineInfosSize; index++) {
 
 			String lineInfo = lineInfos[index].trim();
@@ -156,13 +159,13 @@ public class NdkBuildService {
 								// 如果 包含error 就剔除
 								errorInfo = errorInfo.substring(errorPrefix.length(), errorInfo.length()).trim();
 							}
-							
+
 							/*errorPrefix = "note:";
-							if (errorInfo.startsWith(errorPrefix)) {
-								// 如果 包含error 就剔除
-								errorInfo = errorInfo.substring(errorPrefix.length(), errorInfo.length()).trim();
-							}*/
-							
+							 if (errorInfo.startsWith(errorPrefix)) {
+							 // 如果 包含error 就剔除
+							 errorInfo = errorInfo.substring(errorPrefix.length(), errorInfo.length()).trim();
+							 }*/
+
 							int lineInfosSize2 = lineInfosSize - 1;
 							while (index < lineInfosSize2) {
 								String nextLineInfo = lineInfos[index + 1];
@@ -956,6 +959,34 @@ public class NdkBuildService {
 
 			processInfo = ProcessUtil.exec(ninjaCommandList, projectPath, env, true, null, null);
 
+			// 复制 libc++_shared.so
+			File stlSharedFile = cmakeBuild.getStlSharedFile();
+			if( stlSharedFile != null ){
+				String cmakeLibraryOutputDirectory = cmakeBuild.getCmakeLibraryOutputDirectory();
+				String stlSharedFileName = stlSharedFile.getName();
+				File outStlSharedFile = new File( cmakeLibraryOutputDirectory, stlSharedFileName) ;
+
+				if(!outStlSharedFile.exists() 
+				   || outStlSharedFile.lastModified() != stlSharedFile.lastModified()
+				   || outStlSharedFile.length() != stlSharedFile.length() ){
+					FileInputStream input = null;
+					FileOutputStream output = null;
+					try{
+						input = new FileInputStream(stlSharedFile);
+						output = new FileOutputStream(outStlSharedFile);
+						IOUtils.streamTransfer(input, output);
+						// 保证 时间戳一致
+						outStlSharedFile.setLastModified(stlSharedFile.lastModified());
+					}catch(Throwable e){
+						AppLog.e(TAG, "copy StlSharedFile", e);
+					}
+					finally{
+						IOUtils.close(input);
+						IOUtils.close(output);
+					}
+				}
+			}
+			
 			if (processInfo.exit() != 0) {
 
 				// AppLog.d(TAG, "ninja cmd error: -> " + new String(processInfo.getMessagen()));
