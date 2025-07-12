@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EditorCompletionAdapter extends ArrayAdapter<Object> {
-	private static final int maxinitApiVersionSize = 0x1000;
+	private static final int maxinitApiVersionSize = 0x10000;
 	private static Map<String, ApiVersionInfo> infoMap = new ConcurrentHashMap<>(maxinitApiVersionSize * 2);
 
 	private AIDEEditor aideEditor;
@@ -336,18 +336,30 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 	// 防抖
 	private static AtomicBoolean initApiVersionInfoCalled = new AtomicBoolean(false);
 	private static void initApiVersionInfoAsync(List<SourceEntity> sourceEntitys) {
-		if (sourceEntitys.isEmpty() || initApiVersionInfoCalled.get()) {
+		if (sourceEntitys.isEmpty() ) {
 			return;
 		}
 
-		initApiVersionInfoCalled.set(true);
-
 		final ArrayList<SourceEntity> sourceEntitysCopy = new ArrayList<SourceEntity>(sourceEntitys);
 
-		ThreadPoolService.getDefaultThreadPoolService()
+		ThreadPoolService defaultThreadPoolService = ThreadPoolService.getDefaultThreadPoolService();
+		defaultThreadPoolService
 			.submit(new Runnable(){
 				@Override
 				public void run() {
+					Map<String, ApiVersionInfo> infoMap = EditorCompletionAdapter.infoMap;
+					if (infoMap == null
+						|| sourceEntitys == null
+						|| sourceEntitys.isEmpty()) {
+						return;
+					}
+					// 处于初始化是时 不修剪
+					if (!initApiVersionInfoCalled.get() ){
+						// 防止 infoMap 一直增长
+						EditorCompletionAdapter.trimInfoMap(infoMap, sourceEntitys);
+					}
+
+					initApiVersionInfoCalled.set(true);
 					initApiVersionInfo(sourceEntitysCopy, infoMap);
 					initApiVersionInfoCalled.set(false);
 				}
@@ -355,28 +367,7 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 	}
 
 	private static void initApiVersionInfo(List<SourceEntity> sourceEntitys, Map<String, ApiVersionInfo> infoMap) {
-		if (infoMap == null) {
-			return;
-		}
 
-		// 防止 infoMap 一直增长
-		int infoMapSize = infoMap.size();
-		if( infoMapSize > maxinitApiVersionSize){
-			int needRemoveNumber = infoMapSize - maxinitApiVersionSize;
-			Iterator<Map.Entry<String, ApiVersionInfo>> iterator = infoMap.entrySet().iterator();
-			while (iterator.hasNext() && needRemoveNumber > 0) {
-				Map.Entry<String, ApiVersionInfo> entry = iterator.next();
-				ApiVersionInfo value = entry.getValue();
-				if (value == ApiVersionInfo.Empty || value.memberInfo == null) {
-					iterator.remove();
-					needRemoveNumber--;
-				}else if( needRemoveNumber % 8 == 0 ) {
-					// 带 memberInfo 构造起来耗时
-					iterator.remove();
-					needRemoveNumber--;
-				}
-			}
-		}
 		for (SourceEntity sourceEntity : sourceEntitys) {
 			if (sourceEntity == null) {
 				continue;
@@ -394,7 +385,27 @@ public class EditorCompletionAdapter extends ArrayAdapter<Object> {
 				apiVersionInfo = ApiVersionInfo.Empty;
 			}
 			infoMap.put(docUrl, apiVersionInfo);
+		}
+	}
 
+	private static void trimInfoMap(Map<String, ApiVersionInfo> infoMap, List<SourceEntity> sourceEntitys) {
+		int infoMapSize = infoMap.size();
+		int sourceEntitysSize = sourceEntitys.size();
+		if(infoMapSize > sourceEntitysSize && infoMapSize > maxinitApiVersionSize){
+			int needRemoveNumber = infoMapSize - maxinitApiVersionSize;
+			Iterator<Map.Entry<String, ApiVersionInfo>> iterator = infoMap.entrySet().iterator();
+			while (iterator.hasNext() && needRemoveNumber > 0) {
+				Map.Entry<String, ApiVersionInfo> entry = iterator.next();
+				ApiVersionInfo value = entry.getValue();
+				if (value == ApiVersionInfo.Empty || value.memberInfo == null) {
+					iterator.remove();
+					needRemoveNumber--;
+				}else if( needRemoveNumber % 8 == 0 ) {
+					// 带 memberInfo 构造起来耗时
+					iterator.remove();
+					needRemoveNumber--;
+				}
+			}
 		}
 	}
 
