@@ -125,8 +125,6 @@ public class DownloadMavenLibraries implements Callable<Void> {
 			try {
 				//遍历远程仓库
 				for (BuildGradle.RemoteRepository remoteRepository : this.remoteRepositorys) {
-					AppLog.d(TAG, "下载依赖 -> %s", dep);
-					AppLog.d(TAG, "remoteRepository -> %s", remoteRepository.repositorieURL);
 					
 					try {
 						String mavenMetadataPath = MavenService.getMetadataPath(remoteRepository, dep);
@@ -178,7 +176,6 @@ public class DownloadMavenLibraries implements Callable<Void> {
 						if (downloadArtifactFile(remoteRepository, dep, version, "." + dep.packaging, count)) {
 							count++;
 							downloadComplete = true;
-							AppLog.d(TAG, "下载 ArtifactFile 成功 -> %s", dep);
 							break;
 						}
 
@@ -188,7 +185,6 @@ public class DownloadMavenLibraries implements Callable<Void> {
 							if (downloadArtifactFile(remoteRepository, dep, version, "." + dep.packaging, count)) {
 								count++;
 								downloadComplete = true;
-								AppLog.d(TAG, "下载 ArtifactFile 成功 -> %s", dep);
 								break;
 							}
 						}
