@@ -535,8 +535,9 @@ public class FileBrowser extends LinearLayoutCompat implements
 
                     title.setText(file.getName());
                     icon.setImageResource(iconResId);
-                    if (isFileInArchive) {
-                        SuFile currentEditorFile = new SuFile(ServiceContainer.getMainActivity().getAIDEEditorPager().getVisibleFile());
+                    String currentEditorFilePath = ServiceContainer.getMainActivity().getAIDEEditorPager().getVisibleFile();
+					if (isFileInArchive && currentEditorFilePath != null) {
+                        SuFile currentEditorFile = new SuFile(currentEditorFilePath);
                         if (file.getAbsolutePath().equals(currentEditorFile.getAbsolutePath())) {
                             barStart.setVisibility(View.VISIBLE);
                             bgView.setVisibility(View.VISIBLE);
